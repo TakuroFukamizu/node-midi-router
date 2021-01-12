@@ -1,31 +1,21 @@
 
 var easymidi = require('easymidi');
 
-function getDevices() { 
-    const outputs = easymidi.getOutputs();
-    return outputs;
-}
+const inputs = easymidi.getInputs();
+const outputs = easymidi.getOutputs();
+console.debug(inputs, outputs);
 
-class MidiInterfaceDriver { 
-    constructor(name) { 
-        if (!name) { 
-            this.isDummyMode = true;
-            return;
-        }
-        this.interface = new easymidi.Output(name);
-    }
-    output(kind, payload) { 
-        if (this.isDummyMode) { 
-            console.info(`[DUMMY MODE] skip ${kind}`, payload);
-            return;
-        }
-        this.interface.send(kind.toLowerCase(), payload);
-        // output.send('noteon', {
-        //   note: 64,
-        //   velocity: 127,
-        //   channel: 3
-        // });
-    }
-}
+const inputName = 'nanoKEY2 KEYBOARD';
+const outputName = 'USB MIDI Interface';
 
-console.debug(getDevices());
+const input = new easymidi.Input(inputName);
+const output = new easymidi.Output(outputName);
+
+const kinds = ['noteon', 'noteoff'];
+for (const kind of kinds) {
+    input.on(kind, (params) => {
+        // params = {note: ..., velocity: ..., channel: ...}
+        console.log(kind, params);
+        output.send(kind, params);
+    }); 
+}
