@@ -29,7 +29,15 @@ midi@^1.0.0:
     bindings "~1.5.0"
     nan "^2.3.3"
 
-nan@^2.3.3:
+nan@^2.14.1, nan@^2.3.3:
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
+
+rpio@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/rpio/-/rpio-2.4.0.tgz#4153b5d10e40578ca8093c39708c7b6057fba6d0"
+  integrity sha512-alS4jLf1qFHMpXe0Jk+uEiHaSb4jkg/tV8QUrYvA2NrqacB11FXgUBbW/Rf2sycGO0DD6vuKT/5GikfbpVgnpA==
+  dependencies:
+    bindings "~1.5.0"
+    nan "^2.14.1"

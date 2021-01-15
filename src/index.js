@@ -1,6 +1,9 @@
 
 const easymidi = require('easymidi');
 const EventEmitter = require("events");
+const StatusLed = require('./statusLed');
+
+const statusLed = new StatusLed();
 
 const emitter = new EventEmitter();
 let inputs = [];
@@ -54,6 +57,9 @@ function getDevices() {
 
 //----
 
+emitter.on('noteon', () => { 
+    statusLed.midiNoteOn();
+});
 
 getDevices();
 console.debug(inputs.map((v) => v.name), outputs.map((v) => v.name));
