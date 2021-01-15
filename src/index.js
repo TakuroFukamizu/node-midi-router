@@ -2,6 +2,7 @@
 const easymidi = require('easymidi');
 const EventEmitter = require("events");
 const StatusLed = require('./statusLed');
+const defines = require('./defines');
 
 const statusLed = new StatusLed();
 
@@ -16,8 +17,26 @@ const kinds = [
 ];
 
 function getDevices() { 
-    const inputNames = easymidi.getInputs();
-    const outputNames = easymidi.getOutputs();
+    let inputNames = easymidi.getInputs();
+    let outputNames = easymidi.getOutputs();
+
+    // 無視するデバイス
+    inputNames = inputNames.filter((v) => {
+        for (const pattern of defines.IgnoreMidiDevices.Prefix) {
+            if (v.indexOf(pattern) === 0) {
+                return false;
+            }
+        }
+        return true;
+    });
+    outputNames = outputNames.filter((v) => {
+        for (const pattern of defines.IgnoreMidiDevices.Prefix) {
+            if (v.indexOf(pattern) === 0) {
+                return false;
+            }
+        }
+        return true;
+    });
 
     // 差分チェック
     const newValue = inputNames.join('') + outputNames.join('');
