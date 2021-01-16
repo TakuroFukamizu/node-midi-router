@@ -8,6 +8,7 @@
   "author": "Takuro Fukamizu",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "easymidi": "^2.0.1",
     "rpio": "^2.4.0"
   }

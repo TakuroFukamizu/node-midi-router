@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 const defines = {
     PinAssings: {
@@ -9,7 +10,8 @@ const defines = {
             'RtMidi Output Client:RtMidi Output',
             'RtMidi Input Client:RtMidi Input'
         ]
-    }
+    },
+    IsGpioDisabledMode: process.env.IS_GPIO_DISABLED_MODE
 };
 
 module.exports = defines;
