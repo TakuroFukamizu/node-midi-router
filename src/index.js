@@ -66,7 +66,10 @@ function getDevices() {
             }); 
         }
         emitter.removeAllListeners(kind);
-        emitter.addListener(kind, (params) => { 
+        emitter.on(kind, (params) => { 
+            switch (kind) { 
+                case 'noteon': statusLed.midiNoteOn(); break;
+            }
             for (const output of outputs) {
                 output.send(kind, params);
             }
@@ -79,9 +82,10 @@ function getDevices() {
 getDevices();
 console.debug(inputs.map((v) => v.name), outputs.map((v) => v.name));
 
-emitter.addListener('noteon', () => { 
-    statusLed.midiNoteOn();
-});
+// emitter.addListener('noteon', () => { 
+//     statusLed.midiNoteOn();
+// });
+// emitter.removeAllListeners(kind); が邪魔
 
 // ---
 
