@@ -7,8 +7,7 @@ const defines = {
         Prefix: [
             'Midi Through:Midi Through Port-',
             'RtMidi Output Client:RtMidi Output',
-            'RtMidi Input Client:RtMidi Input',
-            'USB MIDI Interface:USB MIDI Interface MIDI'
+            'RtMidi Input Client:RtMidi Input'
         ]
     }
 };
