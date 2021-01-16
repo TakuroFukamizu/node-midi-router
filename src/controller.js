@@ -32,26 +32,38 @@ class Controller extends EventEmitter {
     
         // デバイス更新
         console.debug('update devices', inputNames, outputNames);
-    
-        // Inputの準備
-        for (const name of inputNames) {
-            const input = new easymidi.Input(name);
-            for (const kind of kinds) {
-                input.on(kind, (params) => {
-                    // params = {note: ..., velocity: ..., channel: ...}
-                    this.emit(kind, params);
-                    console.log(input.name, kind, params);
-                });
+        
+        try {
+            // Inputの準備
+            for (const name of inputNames) {
+                const input = new easymidi.Input(name);
+                for (const kind of kinds) {
+                    input.on(kind, (params) => {
+                        // params = {note: ..., velocity: ..., channel: ...}
+                        this.emit(kind, params);
+                        console.log(input.name, kind, params);
+                    });
+                }
+                this.inputs.push(input);
             }
-            this.inputs.push(input);
+    
+            // Outputの準備
+            for (const name of outputNames) {
+                this.outputs.push(new easymidi.Output(name));
+            }
+    
+            return true;
+        } catch (ex) { 
+            console.error(ex);
+            try {
+                this.inputs.forEach((v) => v.close());
+                this.outputs.forEach((v) => v.close());
+            } catch (ex) {
+                console.error(ex);
+            }
+            this.inputs = [];
+            this.outputs = [];
         }
-
-        // Outputの準備
-        for (const name of outputNames) { 
-            this.outputs.push(new easymidi.Output(name));
-        }
-
-        return true;
     }
 
     getDeviceUpdates() { 
