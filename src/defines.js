@@ -1,7 +1,7 @@
 
 const defines = {
     PinAssings: {
-        MidiNoteOnLED: 23
+        MidiNoteOnLED: 16 // P16 / GPIO23
     },
     IgnoreMidiDevices: {
         Prefix: [
