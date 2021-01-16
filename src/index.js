@@ -66,7 +66,7 @@ function getDevices() {
             }); 
         }
         emitter.removeAllListeners(kind);
-        emitter.on(kind, (params) => { 
+        emitter.addListener(kind, (params) => { 
             for (const output of outputs) {
                 output.send(kind, params);
             }
@@ -76,12 +76,12 @@ function getDevices() {
 
 //----
 
-emitter.on('noteon', () => { 
-    statusLed.midiNoteOn();
-});
-
 getDevices();
 console.debug(inputs.map((v) => v.name), outputs.map((v) => v.name));
+
+emitter.addListener('noteon', () => { 
+    statusLed.midiNoteOn();
+});
 
 // ---
 
